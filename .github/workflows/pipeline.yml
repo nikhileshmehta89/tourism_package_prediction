@@ -10,7 +10,7 @@ jobs:
   register-dataset:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Dependencies
         run: <add_code_here>
       - name: Upload Dataset to Hugging Face Hub
@@ -22,7 +22,7 @@ jobs:
     needs: register-dataset
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Dependencies
         run: <add_code_here>
       - name: Run Data Preparation
@@ -35,7 +35,7 @@ jobs:
     needs: data-prep
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Dependencies
         run: <add_code_here>
       - name: Start MLflow Server
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [model-traning,data-prep,register-dataset]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Dependencies
         run: <add_code_here>
       - name: Push files to Frontend Hugging Face Space
