@@ -10,8 +10,10 @@ from sklearn.preprocessing import LabelEncoder
 # for hugging face space authentication to upload files
 from huggingface_hub import login, HfApi
 
-# Define constants for the dataset and output paths
+
 api = HfApi(token=os.getenv("HF_TOKEN"))
+
+# Define constants for the dataset and output paths
 DATASET_PATH = "hf://datasets/nikhileshmehta89/tourism_package_prediction/tourism_package.csv"
 df = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
@@ -65,19 +67,17 @@ print("Train and test datasets saved locally.")
 
 # ── Upload to Hugging Face ─────────────────────────────────────────────────────
 
-repo_id = "nikhileshmehta89/tourism_package_prediction"
-
 api.upload_file(
     path_or_fileobj="tourism_project/data/train.csv",
     path_in_repo="train.csv",
-    repo_id=repo_id,
+    repo_id="nikhileshmehta1989/tourism-package-prediction",
     repo_type="dataset",
 )
 
 api.upload_file(
     path_or_fileobj="tourism_project/data/test.csv",
     path_in_repo="test.csv",
-    repo_id=repo_id,
+    repo_id="nikhileshmehta1989/tourism-package-prediction",
     repo_type="dataset",
 )
 
