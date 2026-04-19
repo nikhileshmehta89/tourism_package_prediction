@@ -15,8 +15,8 @@ api = HfApi(token=os.getenv("HF_TOKEN"))
 
 # Define constants for the dataset and output paths
 repo_id = "nikhileshmehta1989/tourism-package-prediction"
-# DATASET_PATH = f"hf://datasets/{repo_id}/tourism_package.csv"
-DATASET_PATH = "tourism_project/data/tourism_package.csv"
+DATASET_PATH = f"hf://datasets/{repo_id}/tourism.csv"
+#DATASET_PATH = "tourism_project/data/tourism_package.csv"
 df = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
 
