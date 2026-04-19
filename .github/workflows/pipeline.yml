@@ -26,8 +26,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
       - name: Install Dependencies
-        run: pip install pandas scikit-learn huggingface_hub
+        run: pip install pandas scikit-learn=1.4.2 huggingface_hub
       - name: Run Data Preparation
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
@@ -43,7 +47,7 @@ jobs:
         with:
           python-version: "3.9"
       - name: Install Dependencies
-        run: pip install pandas scikit-learn mlflow joblib huggingface_hub
+        run: pip install pandas scikit-learn==1.4.2 mlflow joblib huggingface_hub
       - name: Start MLflow Server
         run: |
           nohup mlflow ui --host 0.0.0.0 --port 5000 &  # Run MLflow UI in the background
