@@ -9,7 +9,7 @@ from huggingface_hub import hf_hub_download
 @st.cache_resource
 def load_model():
     model_path = hf_hub_download(
-        repo_id="nikhileshmehta89/tourism-best-model",
+        repo_id="nikhileshmehta1989/tourism-package-prediction",
         filename="best_model.pkl",
         token=os.getenv("HF_TOKEN"),
     )

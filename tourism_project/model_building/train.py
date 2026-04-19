@@ -12,8 +12,8 @@ from huggingface_hub.utils import RepositoryNotFoundError
 
 # ── Load Train / Test Data from Hugging Face ───────────────────────────────────
 
-TRAIN_PATH = "hf://datasets/nikhileshmehta89/tourism_package_prediction/train.csv"
-TEST_PATH  = "hf://datasets/nikhileshmehta89/tourism_package_prediction/test.csv"
+TRAIN_PATH = "hf://datasets/nikhileshmehta1989/tourism-package-prediction/train.csv"
+TEST_PATH  = "hf://datasets/nikhileshmehta1989/tourism-package-prediction/test.csv"
 
 train_df = pd.read_csv(TRAIN_PATH)
 test_df  = pd.read_csv(TEST_PATH)
@@ -117,7 +117,7 @@ print(f"Best model saved to {model_path}")
 
 # ── Register Best Model to Hugging Face Model Hub ─────────────────────────────
 
-MODEL_REPO_ID = "nikhileshmehta89/tourism-best-model"
+MODEL_REPO_ID = "nikhileshmehta1989/tourism-package-prediction"
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
 try:

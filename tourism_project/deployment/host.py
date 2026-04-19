@@ -2,7 +2,7 @@ import os
 from huggingface_hub import HfApi, create_repo
 from huggingface_hub.utils import RepositoryNotFoundError
 
-SPACE_REPO_ID = "nikhileshmehta89/tourism-package-predictor"
+SPACE_REPO_ID = "nikhileshmehta1989/tourism-package-prediction"
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
 # Create the HF Space if it doesn't exist
