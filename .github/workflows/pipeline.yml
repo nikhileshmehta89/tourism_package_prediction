@@ -31,7 +31,7 @@ jobs:
         with:
           python-version: "3.9"
       - name: Install Dependencies
-        run: pip install pandas scikit-learn=1.4.2 huggingface_hub
+        run: pip install pandas scikit-learn==1.4.2 huggingface_hub
       - name: Run Data Preparation
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
