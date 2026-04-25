@@ -1,49 +1,49 @@
-# for data manipulation
-import pandas as pd
-import sklearn
-# for creating a folder
+
 import os
-# for data preprocessing and pipeline creation
+import pandas as pd
 from sklearn.model_selection import train_test_split
-# for converting text data in to numerical representation
 from sklearn.preprocessing import LabelEncoder
-# for hugging face space authentication to upload files
-from huggingface_hub import login, HfApi
+from huggingface_hub import HfApi
 
+HF_TOKEN = os.getenv("HF_TOKEN")
+if not HF_TOKEN:
+    raise ValueError("HF_TOKEN is not set")
 
-api = HfApi(token=os.getenv("HF_TOKEN"))
+api = HfApi(token=HF_TOKEN)
 
-# Define constants for the dataset and output paths
 repo_id = "nikhileshmehta1989/tourism-package-prediction"
+<<<<<<< HEAD
 DATASET_PATH = f"hf://datasets/{repo_id}/tourism.csv"
 #DATASET_PATH = "tourism_project/data/tourism_package.csv"
+=======
+
+# Safer: read local raw file first
+DATASET_PATH = "tourism_project/data/tourism_package.csv"
+print("Reading from:", DATASET_PATH)
+>>>>>>> ba45707 (updates)
 df = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
 
-# ── Data Cleaning ──────────────────────────────────────────────────────────────
-# Drop the unnamed index column and CustomerID (not useful for prediction)
 df.drop(columns=["Unnamed: 0", "CustomerID"], inplace=True, errors="ignore")
 
-# Fill missing values: median for numeric, mode for categorical
 num_cols = df.select_dtypes(include="number").columns.tolist()
 cat_cols = df.select_dtypes(include="object").columns.tolist()
 
 for col in num_cols:
-    df[col].fillna(df[col].median(), inplace=True)
+    df[col] = df[col].fillna(df[col].median())
 
 for col in cat_cols:
-    df[col].fillna(df[col].mode()[0], inplace=True)
+    mode_val = df[col].mode()
+    if not mode_val.empty:
+        df[col] = df[col].fillna(mode_val.iloc[0])
 
 print("Missing values handled.")
 
-# Encode categorical columns using LabelEncoder
-le = LabelEncoder()
 for col in cat_cols:
-    df[col] = le.fit_transform(df[col])
+    le = LabelEncoder()
+    df[col] = le.fit_transform(df[col].astype(str))
 
 print("Categorical columns encoded.")
-
-# ── Train / Test Split ─────────────────────────────────────────────────────────
 
 X = df.drop(columns=["ProdTaken"])
 y = df["ProdTaken"]
@@ -60,26 +60,25 @@ test_df["ProdTaken"] = y_test.values
 
 print(f"Train size: {len(train_df)}, Test size: {len(test_df)}")
 
-# ── Save Locally ───────────────────────────────────────────────────────────────
-
 os.makedirs("tourism_project/data", exist_ok=True)
-train_df.to_csv("tourism_project/data/train.csv", index=False)
-test_df.to_csv("tourism_project/data/test.csv", index=False)
+train_path = "tourism_project/data/train.csv"
+test_path = "tourism_project/data/test.csv"
+
+train_df.to_csv(train_path, index=False)
+test_df.to_csv(test_path, index=False)
 print("Train and test datasets saved locally.")
 
-# ── Upload to Hugging Face ─────────────────────────────────────────────────────
-
 api.upload_file(
-    path_or_fileobj="tourism_project/data/train.csv",
+    path_or_fileobj=train_path,
     path_in_repo="train.csv",
-    repo_id="nikhileshmehta1989/tourism-package-prediction",
+    repo_id=repo_id,
     repo_type="dataset",
 )
 
 api.upload_file(
-    path_or_fileobj="tourism_project/data/test.csv",
+    path_or_fileobj=test_path,
     path_in_repo="test.csv",
-    repo_id="nikhileshmehta1989/tourism-package-prediction",
+    repo_id=repo_id,
     repo_type="dataset",
 )
 
