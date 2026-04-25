@@ -1,5 +1,5 @@
-# Use a minimal base image with Python 3.9 installed
-FROM python:3.9
+# Use a minimal base image with Python 3.11 installed
+FROM python:3.11
 
 # Set the working directory inside the container to /app
 WORKDIR /app
