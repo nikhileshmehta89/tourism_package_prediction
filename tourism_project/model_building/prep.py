@@ -12,15 +12,13 @@ if not HF_TOKEN:
 api = HfApi(token=HF_TOKEN)
 
 repo_id = "nikhileshmehta1989/tourism-package-prediction"
-<<<<<<< HEAD
+
 DATASET_PATH = f"hf://datasets/{repo_id}/tourism.csv"
-#DATASET_PATH = "tourism_project/data/tourism_package.csv"
-=======
+
 
 # Safer: read local raw file first
 DATASET_PATH = "tourism_project/data/tourism_package.csv"
 print("Reading from:", DATASET_PATH)
->>>>>>> ba45707 (updates)
 df = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
 
